@@ -25,11 +25,7 @@ jobs:
           VERSION=${VERSION#refs/heads/build/v}
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
-      - run: npm run install
-        working-directory: ./repo
-
-      - run: npm run build
-        working-directory: ./repo
+      - run: node ci-build.mjs
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
