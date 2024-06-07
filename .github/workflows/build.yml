@@ -24,13 +24,12 @@ jobs:
           VERSION=${{ github.ref }}
           VERSION=${VERSION#refs/heads/build/v}
           echo "VERSION=$VERSION" >> $GITHUB_ENV
-      - run: cd repo
 
       - run: npm run install
+        working-directory: ./repo
 
       - run: npm run build
-
-      - run: cd ../
+        working-directory: ./repo
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
