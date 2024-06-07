@@ -27,13 +27,13 @@ jobs:
           VERSION=${VERSION#refs/heads/build/v}
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
-      - run: npm install
-        with:
-          working-directory: repo
+      - name: Install Dependencies
+        run: npm install
+        working-directory: repo
 
-      - run: npm run build
-        with:
-          working-directory: repo
+      - name: Build
+        run: npm run build
+        working-directory: repo
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
