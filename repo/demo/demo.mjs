@@ -1,5 +1,5 @@
 import path from 'node:path';
-import * as node_nim from 'node-nim';
+import node_nim from 'node-nim';
 import { metaHelper } from '@sweet-milktea/utils';
 import packageJson from '../package.json' assert { type: 'json' };
 
