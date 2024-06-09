@@ -20,11 +20,11 @@ const mac = path.join(buildDir, 'mac');
 const macArm = path.join(buildDir, 'mac-arm');
 const linux64 = path.join(buildDir, 'linux64');
 
-const win32Nim = path.join(win32, 'nim-node');
-const win64Nim = path.join(win64, 'nim-node');
-const macNim = path.join(mac, 'nim-node');
-const macArmNim = path.join(macArm, 'nim-node');
-const linux64Nim = path.join(linux64, 'nim-node');
+const win32Nim = path.join(win32, 'node-nim');
+const win64Nim = path.join(win64, 'node-nim');
+const macNim = path.join(mac, 'node-nim');
+const macArmNim = path.join(macArm, 'node-nim');
+const linux64Nim = path.join(linux64, 'node-nim');
 
 // sdk目录
 const win32NimSDKDir = path.join(win32, 'node_modules/node-nim/sdk');
