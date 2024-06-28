@@ -33,17 +33,14 @@ async function chatroomMain() {
 
   /* 设置进入chatroom的房间后的回调函数 */
   node_nim.chatroom.on('enter', async function(rid, status, status2, roomInfo, myInfo) {
-    // 进入房间成功
     if (status === 5 && status2 === 200) {
       console.log(roomInfo);
 
-      // 获取聊天记录
       const [his0, his1, chatroomMessages] = await node_nim
         .chatroom.getMessageHistoryOnlineAsync(config.roomId, { limit_: 20 }, null, '');
 
       console.log(chatroomMessages);
 
-      // 监听房间消息
       node_nim.chatroom.on('receiveMsg', function(n, msg) {
         console.log(msg);
       });
