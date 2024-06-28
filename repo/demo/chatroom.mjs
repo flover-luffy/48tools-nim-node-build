@@ -2,12 +2,12 @@ import path from 'node:path';
 import node_nim from 'node-nim';
 import { metaHelper } from '@sweet-milktea/utils';
 import packageJson from '../package.json' assert { type: 'json' };
+import configJson from './config.json' assert { type: 'json' };
 
 const { __dirname } = metaHelper(import.meta.url);
 
 const config = {
-  account: '',
-  token: '',
+  ...configJson,
   roomId: 4403512650
 };
 
