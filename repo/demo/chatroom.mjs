@@ -6,37 +6,52 @@ import configJson from './config.json' assert { type: 'json' };
 
 const { __dirname } = metaHelper(import.meta.url);
 
+/* p配置 */
 const config = {
   ...configJson,
   roomId: 4403512650
 };
 
-const appDataDir = path.join(__dirname, '../../cache0');
+/* 配置用户数据 */
+const appDataDir = path.join(__dirname, '../../cache0/chatroom');
 
-/* NIM登录 */
-node_nim.nim.client.init(atob(packageJson.hash1), appDataDir, '', {});
-node_nim.nim.initEventHandlers();
+async function chatroomMain() {
+  /* NIM初始化 */
+  node_nim.nim.client.init(atob(packageJson.hash1), appDataDir, '', {});
 
-const [loginResult] = await node_nim.nim.client.login(atob(packageJson.hash1), config.account, config.token, null, '');
-const [reqEnterCode, reqEnterResult] = await node_nim.nim.plugin.chatRoomRequestEnterAsync(config.roomId, null, '');
+  /* NIM初始化event */
+  node_nim.nim.initEventHandlers();
 
-/* Chatroom */
-node_nim.chatroom.init('', '');
-node_nim.chatroom.initEventHandlers();
+  /**
+   * NIM账户登录
+   * !在登录前最好删除appDataDir里面的文件
+   */
+  const [loginResult] = await node_nim.nim.client.login(atob(packageJson.hash1), config.account, config.token, null, '');
 
-node_nim.chatroom.on('enter', async function(rid, status, status2, roomInfo, myInfo) {
-  if (status === 5 && status2 === 200) {
-    console.log(roomInfo);
+  /* 获取进入chatroom使用的enter result */
+  const [reqEnterCode, reqEnterResult] = await node_nim.nim.plugin.chatRoomRequestEnterAsync(config.roomId, null, '');
 
-    const [his0, his1, his2] = await node_nim
-      .chatroom.getMessageHistoryOnlineAsync(config.roomId, { limit_: 20 }, null, '');
+  /* 设置进入chatroom的房间后的回调函数 */
+  node_nim.chatroom.on('enter', async function(rid, status, status2, roomInfo, myInfo) {
+    // 进入房间成功
+    if (status === 5 && status2 === 200) {
+      console.log(roomInfo);
 
-    console.log(his2);
+      // 获取聊天记录
+      const [his0, his1, chatroomMessages] = await node_nim
+        .chatroom.getMessageHistoryOnlineAsync(config.roomId, { limit_: 20 }, null, '');
 
-    node_nim.chatroom.on('receiveMsg', function(n, msg) {
-      console.log(msg);
-    });
-  }
-});
+      console.log(chatroomMessages);
 
-node_nim.chatroom.enter(config.roomId, reqEnterResult, {}, '');
+      // 监听房间消息
+      node_nim.chatroom.on('receiveMsg', function(n, msg) {
+        console.log(msg);
+      });
+    }
+  });
+
+  /* 进入chatroom的房间 */
+  node_nim.chatroom.enter(config.roomId, reqEnterResult, {}, '');
+}
+
+chatroomMain();
