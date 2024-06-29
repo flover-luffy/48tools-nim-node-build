@@ -31,6 +31,10 @@ async function chatroomMain() {
   /* 获取进入chatroom使用的enter result */
   const [reqEnterCode, reqEnterResult] = await node_nim.nim.plugin.chatRoomRequestEnterAsync(config.roomId, null, '');
 
+  /* Chatroom */
+  node_nim.chatroom.init('', '');
+  node_nim.chatroom.initEventHandlers();
+
   /* 设置进入chatroom的房间后的回调函数 */
   node_nim.chatroom.on('enter', async function(rid, status, status2, roomInfo, myInfo) {
     if (status === 5 && status2 === 200) {
