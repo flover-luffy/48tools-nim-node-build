@@ -4,7 +4,8 @@
   "scripts": {
     "build": "rimraf ../build && npm run build:only",
     "build:only": "node scripts/build.mjs",
-    "demo:chatroom": "rimraf ../cache0/chatroom && node demo/chatroom.mjs"
+    "demo:chatroom": "rimraf ../cache0 && node demo/chatroom.mjs",
+    "demo:qchat": "rimraf ../cache0 && node demo/qchat.mjs"
   },
   "dependencies": {
     "@sweet-milktea/utils": "^4.0.0",

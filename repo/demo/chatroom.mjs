@@ -6,7 +6,7 @@ import configJson from './config.json' assert { type: 'json' };
 
 const { __dirname } = metaHelper(import.meta.url);
 
-/* p配置 */
+/* 配置 */
 const config = {
   ...configJson,
   roomId: 4403512650
