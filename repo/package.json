@@ -12,7 +12,7 @@
     "@vercel/ncc": "^0.38.1",
     "cross-zip": "^4.0.1",
     "fs-extra": "^11.2.0",
-    "node-nim": "^9.16.5",
+    "node-nim": "^9.19.0",
     "rimraf": "^5.0.7"
   },
   "devDependencies": {
